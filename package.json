@@ -46,6 +46,7 @@
     "webpack": "^1.12.13"
   },
   "dependencies": {
+    "admin-lte": "^2.3.3",
     "angular": "^1.5.0",
     "angular-animate": "^1.5.0",
     "angular-mocks": "^1.5.0",
