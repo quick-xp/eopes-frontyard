@@ -95,7 +95,7 @@ website/css
 website/data
 website/index.html
 website/scripts
-website/templates
+website/tpls
 
 # 環境変数
 environments/environment.json

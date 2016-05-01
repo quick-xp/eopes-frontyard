@@ -9,6 +9,9 @@
         "node_modules/bourbon-neat/app/assets/stylesheets"
     ],
     "cssVendor": [
-        "node_modules/normalize.css/normalize.css"
+        "node_modules/normalize.css/normalize.css",
+        "node_modules/admin-lte/bootstrap/css/bootstrap.css",
+        "node_modules/admin-lte/dist/css/AdminLTE.css",
+        "node_modules/admin-lte/dist/css/skins/skin-black.css"
     ]
 }
