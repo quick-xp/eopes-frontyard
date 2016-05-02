@@ -10,6 +10,11 @@ var loader = require('./utilities/loader'),
     incompatible = require('./utilities/incompatible'),
     appCopy = require('./data/app-copy.json');
 
+// jqueryはグローバルに
+var $ = window.$ = window.jQuery = require('jquery');
+var bootstrap = require('bootstrap');
+var adminLte = require('admin-lte');
+
 // render build version if enabled
 version();
 

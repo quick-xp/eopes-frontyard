@@ -4,8 +4,10 @@ module.exports = {
     entry: './src/scripts/main.js',
     resolve: {
         alias: {
-            createjs: 'PreloadJS/lib/preloadjs-0.6.2.combined.js'
-        }
+            jquery: 'admin-lte/plugins/jQuery/jQuery-2.2.0.min.js',
+            createjs: 'PreloadJS/lib/preloadjs-0.6.2.combined.js',
+            bootstrap: 'admin-lte/bootstrap/js/bootstrap.min.js'
+}
     },
     module: {
         loaders: [
