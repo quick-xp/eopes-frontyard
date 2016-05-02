@@ -24,18 +24,20 @@
     </head>
 
     <body class="skin-black">
-        <!-- end: incompatible browser page -->
-        <!-- begin: loader -->
-        <div class="loader"></div>
-        <!-- end: loader -->
-        <!-- begin: main app -->
-        <header class="ng-cloak" ng-include=" 'tpls/partials/header.html' "></header>
-
-        <div class="content-wrapper">
-            <div class="container view-change-animate ng-cloak" ui-view></div>
+        <div class="wrapper">
+            <!-- end: incompatible browser page -->
+            <!-- begin: loader -->
+            <div class="loader"></div>
+            <!-- end: loader -->
+            <!-- begin: main app -->
+            <header class="ng-cloak" ng-include=" 'tpls/partials/header.html' "></header>
+            <header class="ng-cloak" ng-include=" 'tpls/partials/sidebar.html' "></header>
+            <div class="content-wrapper">
+                <div class="container view-change-animate ng-cloak" ui-view></div>
+            </div>
+            <footer class="ng-cloak" ng-include=" 'tpls/partials/footer.html' "></footer>
+            <!-- end: main app -->
+            <script src="scripts/main.js"></script>
         </div>
-        <footer class="ng-cloak" ng-include=" 'tpls/partials/footer.html' "></footer>
-        <!-- end: main app -->
-        <script src="scripts/main.js"></script>
     </body>
 </html>

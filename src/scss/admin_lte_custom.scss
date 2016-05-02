@@ -1,11 +1,16 @@
 .skin-black .main-header .logo {
-    background: #303030;
+    background: #222D32;
+    border-right: 0px;
 }
 
 .skin-black .main-header .logo:hover {
-    background: #303030;
+    background: #222D32;
 }
 
 .skin-black .main-header > .navbar > .sidebar-toggle {
-    border-right :0px
+    border-right :0px;
+}
+
+.user-panel {
+    min-height:45px;
 }
