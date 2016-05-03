@@ -1,0 +1,54 @@
+<section class="content-header">
+  <h1>Listing estimates</h1>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="box">
+      <div class="box-body">
+        <table id="lists" class="table table-bordered table-striped" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+            <th style="width: 40px">#</th>
+            <th>Product</th>
+            <th>Total Cost</th>
+            <th>Total Sell Price</th>
+            <th>Profit</th>
+            <th>Count</th>
+            <th>Total Volume</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+              <tr ng-repeat="estimateResult in estimateResults">
+                <td>no image </td>
+                <td>{{ estimateResult.product_type_id }}</td>
+                <td>{{ estimateResult.total_cost }}
+                </td>
+                <td>{{ estimateResult.sell_total_price }}
+                </td>
+                <td>{{ estimateResult.profit }}
+                </td>
+                <td>{{ estimate.sell_count }} </td>
+                <td>{{ estimate.total_volume}} </td>
+                <td>{{ estimate.created_at }}</td>
+                <td>{{ estimate.updated_at }}</td>
+                <td>show</td>
+                <td>update</td>
+                <td>destroy</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <br>
+
+  <!-- <%= link_to 'New Estimate', select_estimates_path %> -->
+</section>

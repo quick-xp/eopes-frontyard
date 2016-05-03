@@ -23,10 +23,10 @@ angular.module('mApp', [ngTouch, ngSanitize, uiRouter, mAnimations, mCtrls, mDir
                 templateUrl: 'tpls/views/home.html',
                 controller: 'MyCtrl'
             })
-            .state('page1', {
-                url: '/page1',
-                templateUrl: 'tpls/views/page1.html',
-                controller: 'MyCtrl'
+            .state('estimate', {
+                url: '/estimates',
+                templateUrl: 'tpls/views/estimate_index.html',
+                controller: 'EstimateIndexCtrl'
             })
             .state('page1.detail', {
                 url: '/detail',
