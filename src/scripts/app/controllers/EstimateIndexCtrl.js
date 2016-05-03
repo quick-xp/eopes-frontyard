@@ -11,11 +11,9 @@ mCtrls
         function($scope, $stateParams) {
             console.log('test');
 
-            $scope.estimateResults = [
-                {
-                    id: 1,
-                    product_type_id: 34
-                }
-            ];
+            $scope.estimateResults = [{
+                id: 1,
+                product_type_id: 34
+            }];
         }
     ]);

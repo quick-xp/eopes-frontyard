@@ -3,18 +3,29 @@
 var angular = require('angular'),
     ngTouch = require('angular-touch'),
     ngSanitize = require('angular-sanitize'),
+    ngResource = require('angular-resource'),
     uiRouter = require('angular-ui-router'),
     mAnimations = require('./animations/_loader'),
     mCtrls = require('./controllers/_loader'),
     mDirectives = require('./directives/_loader'),
     mServices = require('./services/_loader');
 
+var dependencies = [
+    ngTouch,
+    ngSanitize,
+    ngResource,
+    uiRouter,
+    mAnimations,
+    mCtrls,
+    mDirectives,
+    mServices
+];
 
 /**
  * Register main angular app
  */
-angular.module('mApp', [ngTouch, ngSanitize, uiRouter, mAnimations, mCtrls, mDirectives, mServices])
-    .config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
+angular.module('mApp', dependencies)
+    .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         'ngInject';
 
         $stateProvider
@@ -28,10 +39,10 @@ angular.module('mApp', [ngTouch, ngSanitize, uiRouter, mAnimations, mCtrls, mDir
                 templateUrl: 'tpls/views/estimate_index.html',
                 controller: 'EstimateIndexCtrl'
             })
-            .state('page1.detail', {
-                url: '/detail',
-                templateUrl: 'tpls/views/detail.html',
-                controller: 'DetailCtrl'
+            .state('estimate_select', {
+                url: '/estimate_select',
+                templateUrl: 'tpls/views/estimate_select.html',
+                controller: 'EstimateSelectCtrl'
             });
 
         $urlRouterProvider.otherwise('/');

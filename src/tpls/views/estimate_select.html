@@ -1,0 +1,10 @@
+<section class="content-header">
+    <h1>Select Estimate Item</h1>
+</section>
+
+<section class="content">
+    <div class="form-group">
+        <label>Blueprint</label>
+        <select class="form-control" ng-model="blueprintTypeId" ng-options="m.typeID as m.typeName for m in manufactureAvailables"></select>
+    </div>
+</section>
