@@ -6,7 +6,8 @@ module.exports = {
         alias: {
             jquery: 'admin-lte/plugins/jQuery/jQuery-2.2.0.min.js',
             createjs: 'PreloadJS/lib/preloadjs-0.6.2.combined.js',
-            bootstrap: 'admin-lte/bootstrap/js/bootstrap.min.js'
+            bootstrap: 'admin-lte/bootstrap/js/bootstrap.min.js',
+            select2: 'ui-select/dist/select.js'
 }
     },
     module: {

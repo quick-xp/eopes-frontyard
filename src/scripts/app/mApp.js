@@ -10,6 +10,9 @@ var angular = require('angular'),
     mDirectives = require('./directives/_loader'),
     mServices = require('./services/_loader');
 
+require('ui-select');
+require('select2');
+
 var dependencies = [
     ngTouch,
     ngSanitize,
@@ -18,7 +21,8 @@ var dependencies = [
     mAnimations,
     mCtrls,
     mDirectives,
-    mServices
+    mServices,
+    'ui.select'
 ];
 
 /**

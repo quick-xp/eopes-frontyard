@@ -14,5 +14,6 @@ mCtrls.controller('EstimateSelectCtrl', ['$scope', '$stateParams', 'ManufactureA
             $scope.manufactureAvailables = response.manufacture_availables;
         });
 
+        
     }
 ]);

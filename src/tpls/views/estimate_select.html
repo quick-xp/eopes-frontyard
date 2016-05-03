@@ -4,7 +4,13 @@
 
 <section class="content">
     <div class="form-group">
-        <label>Blueprint</label>
-        <select class="form-control" ng-model="blueprintTypeId" ng-options="m.typeID as m.typeName for m in manufactureAvailables"></select>
+        <ui-select ng-model="blueprintTypeId">
+            <ui-select-match placeholder="Select or search a blueprint in the list...">
+                <span ng-bind="$select.selected.typeName"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in (manufactureAvailables | filter: $select.search) track by item.typeID">
+                <span ng-bind="item.typeName"></span>
+            </ui-select-choices>
+        </ui-select>
     </div>
 </section>
