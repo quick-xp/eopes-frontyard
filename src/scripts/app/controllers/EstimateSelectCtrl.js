@@ -10,10 +10,17 @@ mCtrls.controller('EstimateSelectCtrl', ['$scope', '$stateParams', 'ManufactureA
     function($scope, $stateParams, ManufactureAvailableService) {
 
         // 製造可能なプロダクト一覧
-        ManufactureAvailableService.query({}, function(response) {
-            $scope.manufactureAvailables = response.manufacture_availables;
-        });
+        //ManufactureAvailableService.query({}, function(response) {
+        //    $scope.manufactureAvailables = response.manufacture_availables;
+        //});
 
-        
+        $scope.manufactureAvailables = [];
+        $scope.searchBlueprint = function($select) {
+            return ManufactureAvailableService.query({
+                searchWord: $select.search
+            }, function(response) {
+                $scope.manufactureAvailables = response.manufacture_availables;
+            });
+        }
     }
 ]);
