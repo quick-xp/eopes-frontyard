@@ -4,7 +4,7 @@
 
 <section class="content">
     <div class="form-group">
-        <ui-select ng-model="blueprintTypeId">
+        <ui-select ng-model="estimate.selected">
             <ui-select-match placeholder="Select or search a blueprint in the list...">
                 <span ng-bind="$select.selected.typeName"></span>
             </ui-select-match>
@@ -13,4 +13,6 @@
             </ui-select-choices>
         </ui-select>
     </div>
+    <!-- typeID: {{estimate.selected.typeID}}</br> -->
+    <button type="submit" ng-click="blueprintSelect()" class="btn btn-primary">Select</button>
 </section>

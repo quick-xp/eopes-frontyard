@@ -6,21 +6,27 @@ var mCtrls = require('./_mCtrls'),
     loader = require('../../utilities/loader'),
     environment = require('../../data/environment.json');
 
-mCtrls.controller('EstimateSelectCtrl', ['$scope', '$stateParams', 'ManufactureAvailableService',
-    function($scope, $stateParams, ManufactureAvailableService) {
+mCtrls
+    .controller('EstimateSelectCtrl', ['$scope', '$stateParams', 'ManufactureAvailableService', '$location', 'SharedObjectService',
+        function($scope, $stateParams, ManufactureAvailableService, $location, SharedObjectService) {
+            // modelの初期化
+            $scope.estimate = {};
 
-        // 製造可能なプロダクト一覧
-        //ManufactureAvailableService.query({}, function(response) {
-        //    $scope.manufactureAvailables = response.manufacture_availables;
-        //});
+            // 製造可能なプロダクト一覧
+            $scope.manufactureAvailables = [];
+            $scope.searchBlueprint = function($select) {
+                return ManufactureAvailableService.query({
+                    searchWord: $select.search
+                }, function(response) {
+                    $scope.manufactureAvailables = response.manufacture_availables;
+                });
+            }
 
-        $scope.manufactureAvailables = [];
-        $scope.searchBlueprint = function($select) {
-            return ManufactureAvailableService.query({
-                searchWord: $select.search
-            }, function(response) {
-                $scope.manufactureAvailables = response.manufacture_availables;
-            });
+            // Selectボタン
+            $scope.blueprintSelect = function() {
+                SharedObjectService.estimateTypeId = $scope.estimate.selected.typeID;
+                
+                //$location.path('/estimates')
+            }
         }
-    }
-]);
+    ]);
