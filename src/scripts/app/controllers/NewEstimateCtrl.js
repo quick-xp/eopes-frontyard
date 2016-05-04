@@ -7,18 +7,25 @@ var mCtrls = require('./_mCtrls'),
     environment = require('../../data/environment.json');
 
 mCtrls
-    .controller('NewEstimateCtrl', ['$scope', '$stateParams', 'EstimateBlueprintService', '$location', 'SharedObjectService',
-        function($scope, $stateParams, EstimateBlueprintService, $location, SharedObjectService) {
+    .controller('NewEstimateCtrl', ['$scope', '$state', '$stateParams', 'NewEstimateBlueprintService', '$location', 'SharedObjectService',
+        function($scope, $state, $stateParams, NewEstimateBlueprintService, $location, SharedObjectService) {
 
             // 初期化
             var initialize = function() {
-                var estimateTypeId = SharedObjectService.estimateTypeId;
+                $scope.estimateTypeId = SharedObjectService.estimateTypeId;
+                $scope.estimateTypeName = SharedObjectService.estimateTypeName;
+                
+                // 見積もり対象未設定の場合は選択画面に遷移
+                if ($scope.estimateTypeId == null) {
+                    $state.go('estimate_select');
+                }
 
-                var hoge = EstimateBlueprintService.new_estimate(32775);
-                console.log(hoge);
-                //EstimateBlueprintService.new(estimateTypeId, function(response) {
-                //    $scope.me = response;
-                //});
+                // 設計図の初期化
+                NewEstimateBlueprintService.query({
+                    type_id: $scope.estimateTypeId
+                }, function(response) {
+                    $scope.blueprint = response;
+                });
             };
 
             initialize();

@@ -7,7 +7,7 @@
 <div class='col-md-12'>
 <div class="row">
 <!-- blueprint start-->
-<div class='col-md-6'>
+<div class='col-md-4'>
     <div class="row">
         <div class="box box-warning">
             <div class="box-header">
@@ -17,7 +17,8 @@
             <div class="box-body">
 
                 <form role="form">
-                    image blueprint
+                    <img src = "https://image.eveonline.com/Type/{{blueprint.type_id}}_32.png" alt="{{blueprint.type_id}}" />
+                    {{estimateTypeName}}
                     <br/>
                     <br/>
 
@@ -25,21 +26,21 @@
                         <div class="form-group">
                             <label>ME</label>
                             <br>
-                            <input id="blueprintMe" class="form-control" type="number" min="0" max="10" />
+                            <input id="blueprintMe" ng-model='blueprint.me' class="form-control" type="number" min="0" max="10" />
                         </div>
                     </div>
                     <div class='col-md-6'>
                         <div class="form-group">
                             <label>TE</label>
                             <br>
-                            <input id="blueprintTe" class="form-control" type="number" min="0" max="20"/>
+                            <input id="blueprintTe" ng-model='blueprint.te' class="form-control" type="number" min="0" max="20"/>
                         </div>
                     </div>
                     <div class='col-md-12'>
                         <div class="form-group">
                             <label>RUNS</label>
                             <br>
-                            <input id="blueprintRuns" class="form-control" type="number" min="1" max="999"/>
+                            <input id="blueprintRuns" ng-model='blueprint.runs' class="form-control" type="number" min="1" max="999"/>
                         </div>
                     </div>
 

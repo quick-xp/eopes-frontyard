@@ -25,6 +25,7 @@ mCtrls
             // Selectボタン
             $scope.blueprintSelect = function() {
                 SharedObjectService.estimateTypeId = $scope.estimate.selected.typeID;
+                SharedObjectService.estimateTypeName = $scope.estimate.selected.typeName;
                 $state.go('estimate_new');
             };
         }
