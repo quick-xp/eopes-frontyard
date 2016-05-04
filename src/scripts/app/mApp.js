@@ -47,6 +47,11 @@ angular.module('mApp', dependencies)
                 url: '/estimate_select',
                 templateUrl: 'tpls/views/estimate_select.html',
                 controller: 'EstimateSelectCtrl'
+            })
+            .state('estimate_new', {
+                url: '/estimate/new',
+                templateUrl: 'tpls/views/estimate_edit.html',
+                controller: 'NewEstimateCtrl'
             });
 
         $urlRouterProvider.otherwise('/');

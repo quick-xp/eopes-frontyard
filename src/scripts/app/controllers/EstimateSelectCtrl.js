@@ -7,8 +7,8 @@ var mCtrls = require('./_mCtrls'),
     environment = require('../../data/environment.json');
 
 mCtrls
-    .controller('EstimateSelectCtrl', ['$scope', '$stateParams', 'ManufactureAvailableService', '$location', 'SharedObjectService',
-        function($scope, $stateParams, ManufactureAvailableService, $location, SharedObjectService) {
+    .controller('EstimateSelectCtrl', ['$scope','$state', '$stateParams', 'ManufactureAvailableService', '$location', 'SharedObjectService',
+        function($scope, $state, $stateParams, ManufactureAvailableService, $location, SharedObjectService) {
             // modelの初期化
             $scope.estimate = {};
 
@@ -20,13 +20,12 @@ mCtrls
                 }, function(response) {
                     $scope.manufactureAvailables = response.manufacture_availables;
                 });
-            }
+            };
 
             // Selectボタン
             $scope.blueprintSelect = function() {
                 SharedObjectService.estimateTypeId = $scope.estimate.selected.typeID;
-                
-                //$location.path('/estimates')
-            }
+                $state.go('estimate_new');
+            };
         }
     ]);
