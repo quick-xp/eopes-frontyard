@@ -7,7 +7,7 @@
 <div class='col-md-12'>
 <div class="row">
 <!-- blueprint start-->
-<div class='col-md-4'>
+<div class='col-md-5'>
     <div class="row">
         <div class="box box-warning">
             <div class="box-header">
@@ -54,7 +54,7 @@
 </div>
 <!-- blueprint end -->
 <!-- location Start-->
-<div class='col-md-8'>
+<div class='col-md-7'>
     <div class="box box-warning">
         <div class="box-header">
             <h3 class="box-title">Location</h3>
@@ -63,12 +63,26 @@
             <div class="box-body">
                 <form role="form">
                     <div class="form-group">
-                        <label>Select</label>
-                        todo
+                        <label>Region</label>
+                        <ui-select ng-model="mapRegion.selected" on-select="changeRegion()">
+                            <ui-select-match placeholder="All Region">
+                                <span ng-bind="$select.selected.regionName"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (mapRegions | filter: $select.search) track by item.regionID">
+                                <span ng-bind="item.regionName"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                     <div class="form-group">
-                        <label>Select</label>
-                        todo
+                        <label>Solar System</label>
+                        <ui-select ng-model="mapSolarSystem.selected">
+                            <ui-select-match placeholder="All SolarSystem">
+                                <span ng-bind="$select.selected.solarSystemName"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (mapSolarSystems | filter: $select.search) track by item.solarSystemID">
+                                <span ng-bind="item.solarSystemName"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                     <div class="form-group">
                         <label>System Cost Index</label>
@@ -90,16 +104,16 @@
                             </tr>
                             <tr>
                                 <td>
-                                    {{jobCost.base_job_cost}}
+                                    {{jobCost.base_job_cost | number: 2}}
                                 </td>
                                 <td>
-                                    {{jobCost.job_fee}}
+                                    {{jobCost.job_fee | number: 2}}
                                 </td>
                                 <td>
-                                    {{jobCost.facility_cost}}
+                                    {{jobCost.facility_cost | number: 2}}
                                 </td>
                                 <td>
-                                    {{jobCost.total_job_cost}}
+                                    {{jobCost.total_job_cost | number: 2}}
                                 </td>
                             </tr>
                         </table>
