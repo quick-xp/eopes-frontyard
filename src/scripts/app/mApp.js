@@ -51,7 +51,7 @@ angular.module('mApp', dependencies)
             .state('estimate_new', {
                 url: '/estimate/new',
                 templateUrl: 'tpls/views/estimate_edit.html',
-                controller: 'NewEstimateCtrl'
+                controller: 'EstimateNewCtrl'
             });
 
         $urlRouterProvider.otherwise('/');
