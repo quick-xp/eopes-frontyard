@@ -12,6 +12,7 @@ var angular = require('angular'),
 
 require('ui-select');
 require('select2');
+require('ng-currency');
 
 var dependencies = [
     ngTouch,
@@ -22,7 +23,8 @@ var dependencies = [
     mCtrls,
     mDirectives,
     mServices,
-    'ui.select'
+    'ui.select',
+    'ng-currency'
 ];
 
 /**
