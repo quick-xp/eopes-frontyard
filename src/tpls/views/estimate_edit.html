@@ -126,6 +126,69 @@
 </div>
 <!-- location End-->
 
+<!-- Material Start-->
+<div class='col-md-12'>
+<div class="row">
+
+<div class='col-md-12'>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Material</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table table-condensed">
+                <tr>
+                    <th style="width: 40px">#</th>
+                    <th>Material</th>
+                    <th>Require</th>
+                    <th>Jita Average</th>
+                    <th>Universe Average</th>
+                    <th>Volume</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                </tr>
+                <div id="estimate-materials">
+                    <tr class="nested-fields-material" ng-repeat="material in materials">
+                        <td>
+                            <img src="https://image.eveonline.com/Type/{{material.type_id}}_32.png" alt="{{material.type_id}}"/>
+                        </td>
+                        <td>
+                            {{material.type_id}}
+                        </td>
+                        <td>
+                            {{material.require_count}}
+                        </td>
+                        <td>
+                            {{material.jita_average_price}}
+                        </td>
+                        <td>
+                            {{material.universe_average_price}}
+                        </td>
+                        <td>
+                            {{material.total_volume}}
+                        </td>
+                        <td>
+                            <input ng-model="material.price" class="form-control"/>
+                        </td>
+                        <td>
+                            {{material.total_price}}
+                        </td>
+                    </tr>
+                </div>
+            </table>
+        </div>
+        <!-- /.box-body -->
+
+    </div>
+    <!-- /.box -->
+</div>
+
+</div>
+</div>
+<!-- Material End-->
+
+
 </div>
 </div>
 </div>
