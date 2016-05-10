@@ -58,7 +58,24 @@ mCtrls
 
             initialize();
 
-            // Region変更
+            // ###########################################//
+            // ##################EVENT####################//
+            // ###########################################//
+
+            // ME
+            $scope.changeMe = function() {
+                $scope.setRequireMaterial();
+                $scope.setMaterialTotalPrice();
+            };
+
+            // RUNS
+            $scope.changeRuns = function() {
+                $scope.setJobInstallCost();
+                $scope.setRequireMaterial();
+                $scope.setMaterialTotalPrice();
+            };
+
+            // Region
             $scope.changeRegion = function() {
                 if ($scope.mapRegion.selected != null) {
                     $scope.jobCost.region_id = $scope.mapRegion.selected.regionID;
@@ -70,9 +87,21 @@ mCtrls
                     $scope.mapSolarSystems = response;
                 });
 
+                // system_cost_indexの取得
+
                 // region変更時はSolarSystemのプルダウンを初期化する
                 $scope.mapSolarSystem.selected = null;
+            };
+
+            // Material price
+            $scope.changeMaterialPrice = function() {
+                $scope.setMaterialTotalPrice();
             }
+
+
+            // ###########################################//
+            // #################VIEW-LOGIC################//
+            // ###########################################//
 
             // material 必要数再設定
             $scope.setRequireMaterial = function() {
@@ -84,6 +113,35 @@ mCtrls
                             $scope.blueprint.me);
                 }
             };
+
+            // material total price 再設定
+            $scope.setMaterialTotalPrice = function() {
+                for (var i = 0; i < $scope.materials.length; i++) {
+                    $scope.materials[i].total_price =
+                        $scope.materials[i].require_count * $scope.materials[i].price;
+                }
+            }
+
+            // job cost 再設定
+            $scope.setJobInstallCost = function() {
+                var tax_rate = 10;
+
+                $scope.jobCost.base_job_cost =
+                    $scope.calcBaseJobCost($scope.materials, $scope.blueprint.runs);
+
+                $scope.jobCost.job_fee =
+                    $scope.calcJobFee($scope.jobCost.system_cost_index, $scope.jobCost.base_job_cost);
+
+                $scope.jobCost.facility_cost =
+                    $scope.calcFacilityCost($scope.jobCost.job_fee, tax_rate);
+
+                $scope.jobCost.total_job_cost =
+                    $scope.calcTotalJobCost($scope.jobCost.job_fee, $scope.jobCost.facility_cost);
+            };
+
+            // ###########################################//
+            // ##################LOGIC####################//
+            // ###########################################//
 
             // material 必要数算出
             $scope.requireMaterial = function(base_quantity, runs, me) {
@@ -116,14 +174,12 @@ mCtrls
             // facility cost 算出
             $scope.calcFacilityCost = function(job_fee, tax_rate) {
                 return job_fee * tax_rate / 100;
-            }
+            };
 
             // total job cost 算出
             $scope.calcTotalJobCost = function(job_fee, facility_cost) {
                 return job_fee + facility_cost;
-            }
-
-            // job cost 再計算
+            };
 
         }
     ]);

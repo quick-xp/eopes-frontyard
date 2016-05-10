@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label>ME</label>
                             <br>
-                            <input id="blueprintMe" ng-model='blueprint.me' class="form-control" type="number" min="0" max="10" />
+                            <input id="blueprintMe" ng-model='blueprint.me' class="form-control" type="number" min="0" max="10" ng-change="changeMe()"/>
                         </div>
                     </div>
                     <div class='col-md-6'>
@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <label>RUNS</label>
                             <br>
-                            <input id="blueprintRuns" ng-model='blueprint.runs' class="form-control" type="number" min="1" max="999" ng-change="setRequireMaterial()" />
+                            <input id="blueprintRuns" ng-model='blueprint.runs' class="form-control" type="number" min="1" max="999" ng-change="changeRuns()" />
                         </div>
                     </div>
 
@@ -169,7 +169,7 @@
                             {{material.total_volume}}
                         </td>
                         <td>
-                            <input ng-model="material.price" class="form-control" ng-currency currency-symbol=""/>
+                            <input ng-model="material.price" class="form-control" ng-currency currency-symbol="" ng-change="changeMaterialPrice()"/>
                         </td>
                         <td>
                             {{material.total_price}}
