@@ -7,7 +7,7 @@ var mCtrls = require('./_mCtrls'),
     environment = require('../../data/environment.json');
 
 mCtrls
-    .controller('EstimateNewCtrl', ['$scope',
+    .controller('EstimateEditCtrl', ['$scope',
         '$state',
         '$stateParams',
         'EstimateNewService',
