@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <label>RUNS</label>
                             <br>
-                            <input id="blueprintRuns" ng-model='blueprint.runs' class="form-control" type="number" min="1" max="999"/>
+                            <input id="blueprintRuns" ng-model='blueprint.runs' class="form-control" type="number" min="1" max="999" ng-change="setRequireMaterial()" />
                         </div>
                     </div>
 
@@ -157,7 +157,7 @@
                             {{material.material_inv_type.typeName}}
                         </td>
                         <td>
-                            {{requireMaterial(material.base_quantity)}}
+                            {{material.require_count}}
                         </td>
                         <td>
                             {{material.jita_average_price}}
