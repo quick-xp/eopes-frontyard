@@ -74,5 +74,47 @@ mCtrls
                 $scope.mapSolarSystem.selected = null;
             }
 
+           // material 必要数算出
+           $scope.requireMaterial = function(base_quantity) {
+               var result = 0.0;
+               var facility_modifier = 1.0;
+               var runs = $scope.blueprint.runs;
+               var me = $scope.blueprint.me;
+               result = Math.ceil(runs * base_quantity * facility_modifier * (1.0 - me * 0.01));
+
+               // 計算の結果よりRunsのほうが大きい場合はRunsを必要量とする
+               if (result < runs){
+                   result = runs;
+               }
+               return result;
+           };
+
+           // base job cost 算出
+           $scope.calcBaseJobCost = function(materials, runs) {
+               var result = 0.0;
+               for(var i = 0; i < materials.length; i++){
+                   result += materials[i].base_quantity * materials[i].adjusted_price;
+               }
+               result = result * runs;
+               return result;
+           };
+
+           // job fee 算出
+           $scope.calcJobFee = function(system_cost_index, base_job_cost){
+               return system_cost_index * base_job_cost;
+           };
+
+           // facility cost 算出
+           $scope.calcFacilityCost = function(job_fee, tax_rate){
+               return job_fee * tax_rate / 100;
+           }
+
+           // total job cost 算出
+           $scope.calcTotalJobCost = function(job_fee, facility_cost){
+               return job_fee + facility_cost;
+           }
+
+           // job cost 再計算
+
         }
     ]);

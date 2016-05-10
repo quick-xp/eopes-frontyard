@@ -154,10 +154,10 @@
                             <img src="https://image.eveonline.com/Type/{{material.type_id}}_32.png" alt="{{material.type_id}}"/>
                         </td>
                         <td>
-                            {{material.type_id}}
+                            {{material.material_inv_type.typeName}}
                         </td>
                         <td>
-                            {{material.require_count}}
+                            {{requireMaterial(material.base_quantity)}}
                         </td>
                         <td>
                             {{material.jita_average_price}}
