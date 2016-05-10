@@ -13,6 +13,7 @@ mCtrls
         'EstimateNewService',
         'MapRegionService',
         'MapSolarSystemService',
+        'MapSystemCostService',
         '$location',
         'SharedObjectService',
         function($scope,
@@ -21,6 +22,7 @@ mCtrls
             EstimateNewService,
             MapRegionService,
             MapSolarSystemService,
+            MapSystemCostService,
             $location,
             SharedObjectService) {
 
@@ -88,9 +90,31 @@ mCtrls
                 });
 
                 // system_cost_indexの取得
+                MapSystemCostService.query({
+                    region_id: $scope.jobCost.region_id
+                }, function(response) {
+                    $scope.jobCost.system_cost_index = response.production_system_cost_index;
+                    $scope.setJobInstallCost();
+                });
 
                 // region変更時はSolarSystemのプルダウンを初期化する
                 $scope.mapSolarSystem.selected = null;
+            };
+
+            // SolarSystem
+            $scope.changeSolarSystem = function() {
+                if ($scope.mapSolarSystem.selected != null) {
+                    $scope.jobCost.region_id = $scope.mapRegion.selected.regionID;
+                    $scope.jobCost.solar_system_id = $scope.mapSolarSystem.selected.solarSystemID;
+                };
+                // system_cost_indexの取得
+                MapSystemCostService.query({
+                    region_id: $scope.jobCost.region_id,
+                    solar_system_id: $scope.jobCost.solar_system_id
+                }, function(response) {
+                    $scope.jobCost.system_cost_index = response.production_system_cost_index;
+                    $scope.setJobInstallCost();
+                });
             };
 
             // Material price

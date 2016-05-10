@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <label>Solar System</label>
-                        <ui-select ng-model="mapSolarSystem.selected">
+                        <ui-select ng-model="mapSolarSystem.selected" on-select="changeSolarSystem()">
                             <ui-select-match placeholder="All SolarSystem">
                                 <span ng-bind="$select.selected.solarSystemName"></span>
                             </ui-select-match>
