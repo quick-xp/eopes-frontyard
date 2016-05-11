@@ -14,6 +14,7 @@ mCtrls
         'MapRegionService',
         'MapSolarSystemService',
         'MapSystemCostService',
+        'JitaMarketLowerPriceService',
         '$location',
         'SharedObjectService',
         function($scope,
@@ -23,6 +24,7 @@ mCtrls
             MapRegionService,
             MapSolarSystemService,
             MapSystemCostService,
+            JitaMarketLowerPriceService,
             $location,
             SharedObjectService) {
 
@@ -43,6 +45,7 @@ mCtrls
                     EstimateNewService.query({
                         type_id: $scope.estimateTypeId
                     }, function(response) {
+                        $scope.estimate = response.estimate;
                         $scope.blueprint = response.estimate.estimate_blueprint;
                         $scope.product = response.estimate.estimate_blueprint.product;
                         $scope.jobCost = response.estimate.estimate_job_cost;
@@ -52,6 +55,14 @@ mCtrls
                         MapRegionService.query({}, function(response) {
                             $scope.mapRegions = response;
                             $scope.changeRegion();
+
+                            // 見積もり初期化(製品の最安値)
+                            JitaMarketLowerPriceService.query({
+                                type_id: $scope.product.typeID
+                            }, function(response) {
+                                $scope.estimate.sell_price = response.price;
+                                $scope.setEstimate();
+                            });
                         });
 
                     });
@@ -68,6 +79,7 @@ mCtrls
             $scope.changeMe = function() {
                 $scope.setRequireMaterialAndVolume();
                 $scope.setMaterialTotalPrice();
+                $scope.setEstimate();
             };
 
             // RUNS
@@ -75,6 +87,7 @@ mCtrls
                 $scope.setJobInstallCost();
                 $scope.setRequireMaterialAndVolume();
                 $scope.setMaterialTotalPrice();
+                $scope.setEstimate();
             };
 
             // Region
@@ -95,6 +108,7 @@ mCtrls
                 }, function(response) {
                     $scope.jobCost.system_cost_index = response.production_system_cost_index;
                     $scope.setJobInstallCost();
+                    $scope.setEstimate();
                 });
 
                 // region変更時はSolarSystemのプルダウンを初期化する
@@ -114,13 +128,15 @@ mCtrls
                 }, function(response) {
                     $scope.jobCost.system_cost_index = response.production_system_cost_index;
                     $scope.setJobInstallCost();
+                    $scope.setEstimate();
                 });
             };
 
             // Material price
             $scope.changeMaterialPrice = function() {
                 $scope.setMaterialTotalPrice();
-            }
+                $scope.setEstimate();
+            };
 
 
             // ###########################################//
@@ -145,7 +161,7 @@ mCtrls
                     $scope.materials[i].total_price =
                         $scope.materials[i].require_count * $scope.materials[i].price;
                 }
-            }
+            };
 
             // job cost 再設定
             $scope.setJobInstallCost = function() {
@@ -162,6 +178,32 @@ mCtrls
 
                 $scope.jobCost.total_job_cost =
                     $scope.calcTotalJobCost($scope.jobCost.job_fee, $scope.jobCost.facility_cost);
+            };
+
+            // estimate 再設定
+            $scope.setEstimate = function() {
+                $scope.estimate.material_total_cost = 0;
+                $scope.estimate.total_volume = 0;
+                for (var i = 0; i < $scope.materials.length; i++) {
+                    $scope.estimate.material_total_cost +=
+                        $scope.materials[i].require_count * $scope.materials[i].price;
+                    $scope.estimate.total_volume +=
+                        $scope.materials[i].volume * $scope.materials[i].require_count;
+                }
+
+                $scope.estimate.production_time = "";
+
+                $scope.estimate.sell_count =
+                    $scope.blueprint.manufacture_product_quantity * $scope.blueprint.runs;
+
+                $scope.estimate.sell_total_price =
+                    $scope.estimate.sell_count * $scope.estimate.sell_price;
+
+                $scope.estimate.total_cost =
+                    $scope.estimate.material_total_cost + $scope.jobCost.total_job_cost;
+
+                $scope.estimate.profit =
+                    $scope.estimate.sell_total_price - $scope.estimate.total_cost;
             };
 
             // ###########################################//

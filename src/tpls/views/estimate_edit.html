@@ -188,6 +188,134 @@
 </div>
 <!-- Material End-->
 
+<!-- Estimate Result Start-->
+<div class='col-md-12'>
+    <div class="box box-warning">
+        <div class="box-header">
+            <h3 class="box-title">Estimate Result</h3>
+        </div>
+        <div class="row">
+            <div class='col-md-6'>
+                <div id="estimate-result">
+                    <div class="box-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Sell Price</label>
+                                <input ng-model="estimate.sell_price" class="form-control" ng-currency currency-symbol="" ng-change="changeSellPrice()"/>
+                            </div>
+                            <div class="box-body no-padding">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th style="width: 40px">#</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Volume</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="https://image.eveonline.com/Type/{{blueprint.product.typeID}}_32.png" alt="{{blueprint.product.typeID}}"/>
+                                        </td>
+                                        <td>
+                                            {{blueprint.product.typeName}}
+                                        </td>
+                                        <td>
+                                            {{estimate.sell_count | number: 0}}
+                                        </td>
+                                        <td>
+                                            {{estimate.total_volume | number: 2}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br/>
+
+                            <div class="box-body no-padding">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th style="width: 20%">Result</th>
+                                        <th style="width: 30%"></th>
+                                        <th style="width: 30%"></th>
+                                        <th style="width: 20%"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Total Sell Price
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            {{estimate.sell_total_price | number: 2}}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Total Cost
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            {{estimate.total_cost | number: 2}}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            Job Install Cost
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            {{jobCost.total_job_cost | number: 2}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            Material Cost
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            {{estimate.material_total_cost | number: 2}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Profit
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            {{estimate.profit | number: 2}}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Production Time
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            {{estimate.production_time}}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class='col-md-6'>
+                <div id="sell-order">
+                    <%= render :partial => 'sell_order' %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Estimate Result End-->
 
 </div>
 </div>
