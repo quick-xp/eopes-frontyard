@@ -66,14 +66,14 @@ mCtrls
 
             // ME
             $scope.changeMe = function() {
-                $scope.setRequireMaterial();
+                $scope.setRequireMaterialAndVolume();
                 $scope.setMaterialTotalPrice();
             };
 
             // RUNS
             $scope.changeRuns = function() {
                 $scope.setJobInstallCost();
-                $scope.setRequireMaterial();
+                $scope.setRequireMaterialAndVolume();
                 $scope.setMaterialTotalPrice();
             };
 
@@ -127,14 +127,15 @@ mCtrls
             // #################VIEW-LOGIC################//
             // ###########################################//
 
-            // material 必要数再設定
-            $scope.setRequireMaterial = function() {
+            // material 必要数 Volume 再設定
+            $scope.setRequireMaterialAndVolume = function() {
                 for (var i = 0; i < $scope.materials.length; i++) {
                     $scope.materials[i].require_count =
                         $scope.requireMaterial(
                             $scope.materials[i].base_quantity,
                             $scope.blueprint.runs,
                             $scope.blueprint.me);
+                    $scope.materials[i].total_volume = $scope.materials[i].volume * $scope.materials[i].require_count;
                 }
             };
 

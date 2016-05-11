@@ -166,13 +166,13 @@
                             {{material.universe_average_price}}
                         </td>
                         <td>
-                            {{material.total_volume}}
+                            {{material.total_volume | number: 2}}
                         </td>
                         <td>
                             <input ng-model="material.price" class="form-control" ng-currency currency-symbol="" ng-change="changeMaterialPrice()"/>
                         </td>
                         <td>
-                            {{material.total_price}}
+                            {{material.total_price | number: 2}}
                         </td>
                     </tr>
                 </div>
