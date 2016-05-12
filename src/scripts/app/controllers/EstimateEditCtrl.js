@@ -15,6 +15,7 @@ mCtrls
         'MapSolarSystemService',
         'MapSystemCostService',
         'JitaMarketLowerPriceService',
+        'CrestMarketService',
         '$location',
         'SharedObjectService',
         function($scope,
@@ -25,12 +26,16 @@ mCtrls
             MapSolarSystemService,
             MapSystemCostService,
             JitaMarketLowerPriceService,
+            CrestMarketService,
             $location,
             SharedObjectService) {
 
             // 定義
             $scope.mapRegion = {};
             $scope.mapSolarSystem = {};
+            // market の Region
+            $scope.mapSellRegion = {};
+            $scope.mapSellRegion.selected = {regionID: "10000002", regionName: "The Forge"};
 
             // 初期化
             var initialize = function() {
@@ -54,6 +59,7 @@ mCtrls
                         // Region初期化
                         MapRegionService.query({}, function(response) {
                             $scope.mapRegions = response;
+                            $scope.mapSellRegions = response;
                             $scope.changeRegion();
 
                             // 見積もり初期化(製品の最安値)
@@ -65,8 +71,14 @@ mCtrls
                             });
                         });
 
+                        // Market情報
+                        CrestMarketService
+                            .sellOrders("10000002", $scope.product.typeID)
+                            .then(function(response) {
+                                $scope.markets = response.data.items;
+                            });
                     });
-                }
+                };
             };
 
             initialize();
@@ -138,6 +150,15 @@ mCtrls
                 $scope.setEstimate();
             };
 
+            // Market Region
+            $scope.changeMapSellRegion = function() {
+                // Market情報
+                CrestMarketService
+                    .sellOrders($scope.mapSellRegion.selected.regionID, $scope.product.typeID)
+                    .then(function(response) {
+                        $scope.markets = response.data.items;
+                    });
+            };
 
             // ###########################################//
             // #################VIEW-LOGIC################//

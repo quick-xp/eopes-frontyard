@@ -307,7 +307,49 @@
 
             <div class='col-md-6'>
                 <div id="sell-order">
-                    <%= render :partial => 'sell_order' %>
+                    <div class="box-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Region</label>
+                                <ui-select ng-model="mapSellRegion.selected" on-select="changeMapSellRegion()" >
+                                    <ui-select-match>
+                                        <span ng-bind="$select.selected.regionName"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in (mapSellRegions | filter: $select.search) track by item.regionID">
+                                        <span ng-bind="item.regionName"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+
+                            <h4 class="box-title">Market Sell Order</h4>
+
+                            <div class="box-body no-padding">
+                                <table class="table table-condensed">
+                                    <tr ng-show="markets.length">
+                                        <th style="width: 20%">price</th>
+                                        <th style="width: 20%">quantity</th>
+                                        <th style="width: 50%">location</th>
+                                    </tr>
+
+                                    <tr ng-repeat="market in markets | orderBy: 'price' | limitTo:10">
+                                        <td>
+                                            {{market.price}}
+                                        </td>
+                                        <td>
+                                            {{market.volume}}
+                                        </td>
+                                        <td>
+                                            {{market.location.name}}
+                                        </td>
+                                    </tr>
+                                    <p ng-hide="markets.length">
+                                        No Data
+                                    </p>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
 
