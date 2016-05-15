@@ -10,6 +10,7 @@ mCtrls
     .controller('EstimateEditCtrl', ['$scope',
         '$state',
         '$stateParams',
+        'EstimateService',
         'EstimateNewService',
         'MapRegionService',
         'MapSolarSystemService',
@@ -21,6 +22,7 @@ mCtrls
         function($scope,
             $state,
             $stateParams,
+            EstimateService,
             EstimateNewService,
             MapRegionService,
             MapSolarSystemService,
@@ -40,6 +42,19 @@ mCtrls
                 regionID: "10000002",
                 regionName: "The Forge"
             };
+
+            // 登録
+            $scope.REGISTRABLE_ATTRIBUTES = ['type_id', 'sell_price', 'sell_count', 'product_type_id',
+                'total_cost', 'material_total_cost', 'profit', 'total_volume','production_time', 'sell_total_price'
+            ];
+            $scope.BLUEPRINT_REGISTRABLE_ATTRIBUTES = ['type_id', 'me', 'te', 'runs'];
+            $scope.MATERIAL_REGISTRABLE_ATTRIBUTES = ['type_id', 'require_count', 'base_quantity', 'price', 'adjusted_price',
+                'total_price', 'jita_total_price', 'jita_average_price', 'universe_total_price',
+                'universe_average_price', 'volume', 'total_volume'
+            ];
+            $scope.JOB_COST_REGISTABLE_ATTRIBUTES = ['region_id', 'solar_system_id', 'system_cost_index', 'base_job_cost',
+                'job_fee', 'facility_cost', 'total_job_cost'
+            ];
 
             // 初期化
             var initialize = function() {
@@ -185,6 +200,13 @@ mCtrls
                 $scope.setEstimate();
             };
 
+            // Save
+            $scope.saveEstimate = function() {
+                var pEstimate = $scope.getPostEstimate();
+                pEstimate.estimate.user_id = 1;
+                pEstimate.$save();
+            };
+
             // ###########################################//
             // #################VIEW-LOGIC################//
             // ###########################################//
@@ -258,6 +280,43 @@ mCtrls
                     $scope.skill.skill_3380,
                     $scope.skill.skill_3388);
             };
+
+            $scope.getPostEstimate = function(){
+                var pEstimate = new EstimateService;
+
+                pEstimate.estimate = {};
+                pEstimate.estimate.estimate_blueprint_attributes = {};
+                pEstimate.estimate.estimate_job_cost_attributes = {};
+                pEstimate.estimate.estimate_materials_attributes = {};
+
+                // estimate
+                for (var i = 0; i < $scope.REGISTRABLE_ATTRIBUTES.length; i++) {
+                    var valueName = $scope.REGISTRABLE_ATTRIBUTES[i];
+                    pEstimate.estimate[valueName] = $scope.estimate[valueName];
+                };
+                // estimate blueprint
+                for (var i = 0; i < $scope.BLUEPRINT_REGISTRABLE_ATTRIBUTES.length; i++) {
+                    var valueName = $scope.BLUEPRINT_REGISTRABLE_ATTRIBUTES[i];
+                    pEstimate.estimate.estimate_blueprint_attributes[valueName] = $scope.blueprint[valueName];
+                };
+                // estimate job cost
+                for (var i = 0; i < $scope.JOB_COST_REGISTABLE_ATTRIBUTES.length; i++) {
+                    var valueName = $scope.JOB_COST_REGISTABLE_ATTRIBUTES[i];
+                    pEstimate.estimate.estimate_job_cost_attributes[valueName] = $scope.jobCost[valueName];
+                };
+                // estimate materials
+                for (var i = 0; i < $scope.materials.length; i++) {
+                    pEstimate.estimate.estimate_materials_attributes[i] = {};
+                    for (var j = 0; j < $scope.MATERIAL_REGISTRABLE_ATTRIBUTES.length; j++) {
+                        var valueName = $scope.MATERIAL_REGISTRABLE_ATTRIBUTES[j];
+                        pEstimate.estimate.estimate_materials_attributes[i][valueName] = $scope.materials[i][valueName];
+                    };
+                };
+
+                // 不足情報の追加
+                pEstimate.estimate.product_type_id = $scope.product.typeID
+                return pEstimate;
+            }
 
             // ###########################################//
             // ##################LOGIC####################//
