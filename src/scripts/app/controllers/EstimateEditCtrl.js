@@ -83,6 +83,15 @@ mCtrls
                             .then(function(response) {
                                 $scope.markets = response.data.items;
                             });
+
+                        // Event登録
+                        $scope.$watch('skill.skill_3380', function() {
+                            $scope.changeUserSkill();
+                        });
+                        $scope.$watch('skill.skill_3388', function() {
+                            $scope.changeUserSkill();
+                        });
+
                     });
                 };
             };
@@ -97,6 +106,11 @@ mCtrls
             $scope.changeMe = function() {
                 $scope.setRequireMaterialAndVolume();
                 $scope.setMaterialTotalPrice();
+                $scope.setEstimate();
+            };
+
+            // TE
+            $scope.changeTe = function() {
                 $scope.setEstimate();
             };
 
@@ -164,6 +178,11 @@ mCtrls
                     .then(function(response) {
                         $scope.markets = response.data.items;
                     });
+            };
+
+            // User skill
+            $scope.changeUserSkill = function() {
+                $scope.setEstimate();
             };
 
             // ###########################################//
