@@ -8,7 +8,8 @@ var angular = require('angular'),
     mAnimations = require('./animations/_loader'),
     mCtrls = require('./controllers/_loader'),
     mDirectives = require('./directives/_loader'),
-    mServices = require('./services/_loader');
+    mServices = require('./services/_loader'),
+    mFilters = require('./filters/_loader');
 
 require('ui-select');
 require('select2');
@@ -23,6 +24,7 @@ var dependencies = [
     mCtrls,
     mDirectives,
     mServices,
+    mFilters,
     'ui.select',
     'ng-currency'
 ];
