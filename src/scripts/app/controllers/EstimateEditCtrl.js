@@ -33,9 +33,13 @@ mCtrls
             // 定義
             $scope.mapRegion = {};
             $scope.mapSolarSystem = {};
+            $scope.skill = {};
             // market の Region
             $scope.mapSellRegion = {};
-            $scope.mapSellRegion.selected = {regionID: "10000002", regionName: "The Forge"};
+            $scope.mapSellRegion.selected = {
+                regionID: "10000002",
+                regionName: "The Forge"
+            };
 
             // 初期化
             var initialize = function() {
@@ -55,6 +59,8 @@ mCtrls
                         $scope.product = response.estimate.estimate_blueprint.product;
                         $scope.jobCost = response.estimate.estimate_job_cost;
                         $scope.materials = response.estimate.estimate_materials;
+                        $scope.skill.skill_3380 = 5;
+                        $scope.skill.skill_3388 = 5;
 
                         // Region初期化
                         MapRegionService.query({}, function(response) {
@@ -212,7 +218,7 @@ mCtrls
                         $scope.materials[i].volume * $scope.materials[i].require_count;
                 }
 
-                $scope.estimate.production_time = "";
+                $scope.estimate.production_time = 0.0;
 
                 $scope.estimate.sell_count =
                     $scope.blueprint.manufacture_product_quantity * $scope.blueprint.runs;
@@ -225,6 +231,13 @@ mCtrls
 
                 $scope.estimate.profit =
                     $scope.estimate.sell_total_price - $scope.estimate.total_cost;
+
+                $scope.estimate.production_time = $scope.calcProductionTime(
+                    $scope.blueprint.manufacture_product_time,
+                    $scope.blueprint.runs,
+                    $scope.blueprint.te,
+                    $scope.skill.skill_3380,
+                    $scope.skill.skill_3388);
             };
 
             // ###########################################//
@@ -267,6 +280,31 @@ mCtrls
             // total job cost 算出
             $scope.calcTotalJobCost = function(job_fee, facility_cost) {
                 return job_fee + facility_cost;
+            };
+
+            // production time 算出
+            $scope.calcProductionTime = function(base_time, runs, te, skill_3380, skill_3388) {
+                var time_modifier = $scope.calcTimeModifier(te, 0);
+                var skill_modifier = $scope.calcSkillModifier(skill_3380, skill_3388);
+                var production_time = base_time * time_modifier * skill_modifier * runs;
+                return production_time;
+            };
+
+            // timer_modifier 算出
+            $scope.calcTimeModifier = function(te, pos_flag) {
+                var time_modifier = 0.0;
+                if (pos_flag) {
+                    time_modifier = (0.75 - (te * 0.01));
+                } else {
+                    time_modifier = (1.0 - (te * 0.01));
+                }
+                return time_modifier;
+            };
+
+            // skill_modifier 算出
+            $scope.calcSkillModifier = function(skill_3380, skill_3388) {
+                var skill_modifier = (1 - (0.04 * skill_3380)) * (1 - (0.03 * skill_3388))
+                return skill_modifier;
             };
 
         }
