@@ -6,12 +6,16 @@ var mCtrls = require('./_mCtrls'),
     loader = require('../../utilities/loader');
 
 mCtrls
-    .controller('EstimateIndexCtrl', ['$scope', '$stateParams', 'EstimateService',
-        function($scope, $stateParams, EstimateService) {
+    .controller('EstimateIndexCtrl', ['$scope', '$stateParams', 'EstimateService', 'DTOptionsBuilder',
+        function($scope, $stateParams, EstimateService, DTOptionsBuilder) {
 
             EstimateService.get({}, function(response) {
                 $scope.estimates = response.estimates;
             });
 
+            // datatable option
+            $scope.dtOptions = DTOptionsBuilder.newOptions()
+                .withDisplayLength(25)
+                .withOption('order', [8, 'desc']);
         }
     ]);
