@@ -6,14 +6,12 @@ var mCtrls = require('./_mCtrls'),
     loader = require('../../utilities/loader');
 
 mCtrls
-    .controller('EstimateIndexCtrl', ['$scope', '$stateParams',
+    .controller('EstimateIndexCtrl', ['$scope', '$stateParams', 'EstimateService',
+        function($scope, $stateParams, EstimateService) {
 
-        function($scope, $stateParams) {
-            console.log('test');
+            EstimateService.get({}, function(response) {
+                $scope.estimates = response.estimates;
+            });
 
-            $scope.estimateResults = [{
-                id: 1,
-                product_type_id: 34
-            }];
         }
     ]);

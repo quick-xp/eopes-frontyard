@@ -207,6 +207,14 @@ mCtrls
                 pEstimate.$save();
             };
 
+            // Save
+            $scope.updateEstimate = function() {
+                var pEstimate = $scope.getPostEstimate();
+                pEstimate.estimate.user_id = 1;
+                pEstimate.estimate.id = $scope.estimate.id;
+                pEstimate.$save();
+            };
+
             // ###########################################//
             // #################VIEW-LOGIC################//
             // ###########################################//

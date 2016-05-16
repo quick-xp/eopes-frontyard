@@ -7,5 +7,10 @@ mServices.factory('EstimateService', function($resource) {
 
     var baseUrl = environment.API_BASE;
 
-    return $resource(baseUrl + "/estimates/:id");
+    return $resource(baseUrl + "/estimates/:id", {}, {
+        get: {
+            method: 'GET',
+            params: {}
+        }
+    });
 });
