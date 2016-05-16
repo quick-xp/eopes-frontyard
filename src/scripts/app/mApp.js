@@ -14,6 +14,10 @@ var angular = require('angular'),
 require('ui-select');
 require('select2');
 require('ng-currency');
+require('datatablesAdminLte');
+require('datatablesBootstrap');
+require('angularDataTables');
+
 
 var dependencies = [
     ngTouch,
@@ -26,7 +30,8 @@ var dependencies = [
     mServices,
     mFilters,
     'ui.select',
-    'ng-currency'
+    'ng-currency',
+    'datatables'
 ];
 
 /**

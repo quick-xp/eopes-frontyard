@@ -6,7 +6,7 @@
   <div class="row">
     <div class="box">
       <div class="box-body">
-        <table id="lists" class="table table-bordered table-striped" cellspacing="0" width="100%">
+        <table id="lists" class="table table-bordered table-striped" datatable="ng" role="grid">
           <thead>
           <tr>
             <th style="width: 40px">#</th>
@@ -18,9 +18,7 @@
             <th>Total Volume</th>
             <th>Created</th>
             <th>Updated</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Operation</th>
           </tr>
           </thead>
 
@@ -36,11 +34,14 @@
                 </td>
                 <td>{{ estimate.sell_count }} </td>
                 <td>{{ estimate.total_volume}} </td>
-                <td>{{ estimate.created_at }}</td>
-                <td>{{ estimate.updated_at }}</td>
-                <td>show</td>
-                <td>update</td>
-                <td>destroy</td>
+                <td>{{ estimate.created_at | date: 'short'}}</td>
+                <td>{{ estimate.updated_at | date: 'short'}}</td>
+                <td>
+                    Show<br/>
+                    Update<br/>
+                    Delete
+                </br/>
+                </td>
               </tr>
           </tbody>
         </table>

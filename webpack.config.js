@@ -5,6 +5,9 @@ module.exports = {
     resolve: {
         alias: {
             jquery: 'admin-lte/plugins/jQuery/jQuery-2.2.0.min.js',
+            datatablesAdminLte: 'admin-lte/plugins/datatables/jquery.dataTables.min.js',
+            datatablesBootstrap: 'admin-lte/plugins/datatables/dataTables.bootstrap.min.js',
+            angularDataTables: 'angular-datatables/dist/angular-datatables.min.js',
             createjs: 'PreloadJS/lib/preloadjs-0.6.2.combined.js',
             bootstrap: 'admin-lte/bootstrap/js/bootstrap.min.js',
             select2: 'ui-select/dist/select.js'

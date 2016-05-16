@@ -13,6 +13,9 @@
         "node_modules/admin-lte/bootstrap/css/bootstrap.css",
         "node_modules/admin-lte/dist/css/AdminLTE.css",
         "node_modules/admin-lte/dist/css/skins/skin-black.css",
-        "node_modules/ui-select/dist/select.css"
+        "node_modules/ui-select/dist/select.css",
+        "node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.css",
+        "node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.min.css",
+        "node_modules/angular-datatables/dist/css/angular-datatables.css"
     ]
 }
