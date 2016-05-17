@@ -17,7 +17,7 @@
             <div class="box-body">
 
                 <form role="form">
-                    <img src = "https://image.eveonline.com/Type/{{blueprint.type_id}}_32.png" alt="{{blueprint.type_id}}" />
+                    <img src="https://image.eveonline.com/Type/{{blueprint.type_id}}_32.png" alt="{{blueprint.type_id}}"/>
                     {{blueprint.blueprint.typeName}}
                     <br/>
                     <br/>
@@ -25,25 +25,21 @@
                     <div class='col-md-6'>
                         <div class="form-group">
                             <label>ME</label>
-                            <br>
-                            <input id="blueprintMe" ng-model='blueprint.me' class="form-control" type="number" min="0" max="10" ng-change="changeMe()"/>
+                            :{{blueprint.me}}
                         </div>
                     </div>
                     <div class='col-md-6'>
                         <div class="form-group">
                             <label>TE</label>
-                            <br>
-                            <input id="blueprintTe" ng-model='blueprint.te' class="form-control" type="number" min="0" max="20" ng-change="changeTe()"/>
+                            :{{blueprint.te}}
                         </div>
                     </div>
                     <div class='col-md-12'>
                         <div class="form-group">
                             <label>RUNS</label>
-                            <br>
-                            <input id="blueprintRuns" ng-model='blueprint.runs' class="form-control" type="number" min="1" max="999" ng-change="changeRuns()" />
+                            :{{blueprint.runs}}
                         </div>
                     </div>
-
 
                 </form>
 
@@ -63,26 +59,10 @@
             <div class="box-body">
                 <form role="form">
                     <div class="form-group">
-                        <label>Region</label>
-                        <ui-select ng-model="mapRegion.selected" on-select="changeRegion()">
-                            <ui-select-match placeholder="All Region">
-                                <span ng-bind="$select.selected.regionName"></span>
-                            </ui-select-match>
-                            <ui-select-choices repeat="item in (mapRegions | filter: $select.search) track by item.regionID">
-                                <span ng-bind="item.regionName"></span>
-                            </ui-select-choices>
-                        </ui-select>
+                        <label>Region</label> :{{jobCost.region.regionName}}
                     </div>
                     <div class="form-group">
-                        <label>Solar System</label>
-                        <ui-select ng-model="mapSolarSystem.selected" on-select="changeSolarSystem()">
-                            <ui-select-match placeholder="All SolarSystem">
-                                <span ng-bind="$select.selected.solarSystemName"></span>
-                            </ui-select-match>
-                            <ui-select-choices repeat="item in (mapSolarSystems | filter: $select.search) track by item.solarSystemID">
-                                <span ng-bind="item.solarSystemName"></span>
-                            </ui-select-choices>
-                        </ui-select>
+                        <label>Solar System</label> :{{jobCost.solar_system.solarSystemName}}
                     </div>
                     <div class="form-group">
                         <label>System Cost Index</label>
@@ -171,7 +151,7 @@
                             {{material.total_volume | number: 2}}
                         </td>
                         <td>
-                            <input ng-model="material.price" class="form-control" ng-currency currency-symbol="" ng-change="changeMaterialPrice()"/>
+                            {{material.price | number: 2}}
                         </td>
                         <td>
                             {{material.total_price | number: 2}}
@@ -206,8 +186,7 @@
                         <div class="box-body">
                             <form role="form">
                                 <div class="form-group">
-                                    <label>Sell Price</label>
-                                    <input ng-model="estimate.sell_price" class="form-control" ng-currency currency-symbol="" ng-change="changeSellPrice()"/>
+                                    <label>Sell Price</label> : {{estimate.sell_price}}
                                 </div>
                                 <div class="box-body no-padding">
                                     <table class="table table-condensed">
@@ -311,53 +290,6 @@
                     </div>
                 </div>
 
-                <div class='col-md-6'>
-                    <div id="sell-order">
-                        <div class="box-body">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label>Region</label>
-                                    <ui-select ng-model="mapSellRegion.selected" on-select="changeMapSellRegion()">
-                                        <ui-select-match>
-                                            <span ng-bind="$select.selected.regionName"></span>
-                                        </ui-select-match>
-                                        <ui-select-choices repeat="item in (mapSellRegions | filter: $select.search) track by item.regionID">
-                                            <span ng-bind="item.regionName"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-
-                                <h4 class="box-title">Market Sell Order</h4>
-
-                                <div class="box-body no-padding">
-                                    <table class="table table-condensed">
-                                        <tr ng-show="markets.length">
-                                            <th style="width: 20%">price</th>
-                                            <th style="width: 20%">quantity</th>
-                                            <th style="width: 50%">location</th>
-                                        </tr>
-
-                                        <tr ng-repeat="market in markets | orderBy: 'price' | limitTo:10">
-                                            <td>
-                                                {{market.price}}
-                                            </td>
-                                            <td>
-                                                {{market.volume}}
-                                            </td>
-                                            <td>
-                                                {{market.location.name}}
-                                            </td>
-                                        </tr>
-                                        <p ng-hide="markets.length">
-                                            No Data
-                                        </p>
-                                    </table>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -378,24 +310,12 @@
                         <form role="form">
                             <div class="form-group">
                                 <div class="radio-group">
-                                    <label>Industry:</label>
-                                    <input type="radio" ng-model="skill.skill_3380" value="0"> 0
-                                    <input type="radio" ng-model="skill.skill_3380" value="1"> 1
-                                    <input type="radio" ng-model="skill.skill_3380" value="2"> 2
-                                    <input type="radio" ng-model="skill.skill_3380" value="3"> 3
-                                    <input type="radio" ng-model="skill.skill_3380" value="4"> 4
-                                    <input type="radio" ng-model="skill.skill_3380" value="5"> 5
+                                    <label>Industry:</label> {{skill.skill_3380}}
                                     <p>description : Allows basic operation of factories. 4% reduction in manufacturing time per skill level.</p>
                                 </div>
 
                                 <div class="radio-group">
-                                    <label>Advanced Industry:</label>
-                                    <input type="radio" ng-model="skill.skill_3388" value="0"> 0
-                                    <input type="radio" ng-model="skill.skill_3388" value="1"> 1
-                                    <input type="radio" ng-model="skill.skill_3388" value="2"> 2
-                                    <input type="radio" ng-model="skill.skill_3388" value="3"> 3
-                                    <input type="radio" ng-model="skill.skill_3388" value="4"> 4
-                                    <input type="radio" ng-model="skill.skill_3388" value="5"> 5
+                                    <label>Advanced Industry:</label>{{skill.skill_3388}}
                                     <p>description : Skill at efficiently using industrial facilities. 3% reduction in all manufacturing and research times per skill level.
                                     </p>
                                 </div>
@@ -410,7 +330,7 @@
 </div>
 <!-- User Skill End -->
 
-<button type="submit" ng-click="saveEstimate()" class="btn btn-primary">Save</button>
+<button type="submit" ng-click="EditEstimate()" class="btn btn-primary">Edit</button>
 
 </div>
 </div>

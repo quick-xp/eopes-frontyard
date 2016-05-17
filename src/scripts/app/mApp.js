@@ -52,6 +52,11 @@ angular.module('mApp', dependencies)
                 templateUrl: 'tpls/views/estimate_index.html',
                 controller: 'EstimateIndexCtrl'
             })
+            .state('estimate_show', {
+                url: '/estimates/:id',
+                templateUrl: 'tpls/views/estimate_show.html',
+                controller: 'EstimateShowCtrl'
+            })
             .state('estimate_select', {
                 url: '/estimate_select',
                 templateUrl: 'tpls/views/estimate_select.html',
