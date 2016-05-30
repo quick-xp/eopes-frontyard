@@ -42,10 +42,12 @@ mCtrls
                 regionID: "10000002",
                 regionName: "The Forge"
             };
+            // 画面パラメータ
+            $scope.id = $stateParams.id;
 
             // 登録
             $scope.REGISTRABLE_ATTRIBUTES = ['type_id', 'sell_price', 'sell_count', 'product_type_id',
-                'total_cost', 'material_total_cost', 'profit', 'total_volume','production_time', 'sell_total_price'
+                'total_cost', 'material_total_cost', 'profit', 'total_volume', 'production_time', 'sell_total_price'
             ];
             $scope.BLUEPRINT_REGISTRABLE_ATTRIBUTES = ['type_id', 'me', 'te', 'runs'];
             $scope.MATERIAL_REGISTRABLE_ATTRIBUTES = ['type_id', 'require_count', 'base_quantity', 'price', 'adjusted_price',
@@ -62,8 +64,26 @@ mCtrls
                 $scope.estimateTypeName = SharedObjectService.estimateTypeName;
 
                 // 見積もり対象未設定の場合は選択画面に遷移
-                if ($scope.estimateTypeId == null) {
+                if ($scope.estimateTypeId == null && $scope.id == null) {
                     $state.go('estimate_select');
+                }
+                if ($scope.id != null) {
+                    // 見積もり更新
+                    EstimateService.get({
+                        id: $scope.id
+                    }, function(response) {
+                        $scope.estimate = response.estimate;
+                        $scope.blueprint = response.estimate.estimate_blueprint;
+                        $scope.product = response.estimate.estimate_blueprint.product;
+                        $scope.jobCost = response.estimate.estimate_job_cost;
+                        $scope.materials = response.estimate.estimate_materials;
+                        $scope.skill = {};
+                        $scope.skill.skill_3380 = 5;
+                        $scope.skill.skill_3388 = 5;
+
+                        $scope.initialize_location_and_market();
+                    });
+
                 } else {
                     // 見積もりの初期化
                     EstimateNewService.query({
@@ -77,36 +97,7 @@ mCtrls
                         $scope.skill.skill_3380 = 5;
                         $scope.skill.skill_3388 = 5;
 
-                        // Region初期化
-                        MapRegionService.query({}, function(response) {
-                            $scope.mapRegions = response;
-                            $scope.mapSellRegions = response;
-                            $scope.changeRegion();
-
-                            // 見積もり初期化(製品の最安値)
-                            JitaMarketLowerPriceService.query({
-                                type_id: $scope.product.typeID
-                            }, function(response) {
-                                $scope.estimate.sell_price = response.price;
-                                $scope.setEstimate();
-                            });
-                        });
-
-                        // Market情報
-                        CrestMarketService
-                            .sellOrders("10000002", $scope.product.typeID)
-                            .then(function(response) {
-                                $scope.markets = response.data.items;
-                            });
-
-                        // Event登録
-                        $scope.$watch('skill.skill_3380', function() {
-                            $scope.changeUserSkill();
-                        });
-                        $scope.$watch('skill.skill_3388', function() {
-                            $scope.changeUserSkill();
-                        });
-
+                        $scope.initialize_location_and_market();
                     });
                 };
             };
@@ -195,19 +186,24 @@ mCtrls
                     });
             };
 
+            // Sell price
+            $scope.changeSellPrice = function() {
+                $scope.setEstimate();
+            };
+
             // User skill
             $scope.changeUserSkill = function() {
                 $scope.setEstimate();
             };
 
-            // Save
+            // Save (Create)
             $scope.saveEstimate = function() {
                 var pEstimate = $scope.getPostEstimate();
                 pEstimate.estimate.user_id = 1;
                 pEstimate.$save();
             };
 
-            // Save
+            // Save (Update)
             $scope.updateEstimate = function() {
                 var pEstimate = $scope.getPostEstimate();
                 pEstimate.estimate.user_id = 1;
@@ -218,6 +214,83 @@ mCtrls
             // ###########################################//
             // #################VIEW-LOGIC################//
             // ###########################################//
+
+            // 初期設定
+            $scope.initialize_location_and_market = function() {
+                // Region初期化
+                MapRegionService.query({}, function(response) {
+                    $scope.mapRegions = response;
+                    $scope.mapSellRegions = response;
+
+                    var region_id = $scope.jobCost.region_id;
+                    var solar_system_id = $scope.jobCost.solar_system_id;
+                    var region_name = "All Region";
+                    var solar_system_name = "All SolarSystem";
+                    if (region_id != null){
+                         region_name = $scope.jobCost.region.regionName;
+                    };
+                    if (solar_system_id != null){
+                        solar_system_name = $scope.jobCost.solar_system.solarSystemName;
+                    };
+
+                    if (region_id == null) {
+                        $scope.changeRegion();
+                    } else {
+                        $scope.mapRegion.selected = {
+                            regionID: region_id,
+                            regionName: region_name
+                        };
+                        $scope.initSolarSystem(region_id, solar_system_id,solar_system_name);
+                    };
+
+                    // 見積もり初期化(製品の最安値)
+                    JitaMarketLowerPriceService.query({
+                        type_id: $scope.product.typeID
+                    }, function(response) {
+                        $scope.estimate.sell_price = response.price;
+                        $scope.setEstimate();
+                    });
+                });
+
+                // Market情報
+                CrestMarketService
+                    .sellOrders("10000002", $scope.product.typeID)
+                    .then(function(response) {
+                        $scope.markets = response.data.items;
+                    });
+
+                // Event登録
+                $scope.$watch('skill.skill_3380', function() {
+                    $scope.changeUserSkill();
+                });
+                $scope.$watch('skill.skill_3388', function() {
+                    $scope.changeUserSkill();
+                });
+            };
+
+            $scope.initSolarSystem = function(region_id, solar_system_id,solar_system_name) {
+                // SolarSystem初期化
+                MapSolarSystemService.query({
+                    region_id: region_id
+                }, function(response) {
+                    $scope.mapSolarSystems = response;
+                    $scope.mapSolarSystem.selected = {
+                        solarSystemID: solar_system_id,
+                        solarSystemName: solar_system_name
+                    };
+
+                    // system_cost_indexの取得
+                    MapSystemCostService.query({
+                        region_id: region_id,
+                        solar_system_id: solar_system_id
+                    }, function(response) {
+                        $scope.jobCost.system_cost_index = response.production_system_cost_index;
+                        $scope.setJobInstallCost();
+                        $scope.setEstimate();
+                    });
+
+                });
+            };
 
             // material 必要数 Volume 再設定
             $scope.setRequireMaterialAndVolume = function() {
@@ -289,7 +362,7 @@ mCtrls
                     $scope.skill.skill_3388);
             };
 
-            $scope.getPostEstimate = function(){
+            $scope.getPostEstimate = function() {
                 var pEstimate = new EstimateService;
 
                 pEstimate.estimate = {};
