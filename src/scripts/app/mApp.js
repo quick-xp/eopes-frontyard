@@ -52,20 +52,25 @@ angular.module('mApp', dependencies)
                 templateUrl: 'tpls/views/estimate_index.html',
                 controller: 'EstimateIndexCtrl'
             })
-            .state('estimate_show', {
-                url: '/estimates/:id',
-                templateUrl: 'tpls/views/estimate_show.html',
-                controller: 'EstimateShowCtrl'
-            })
             .state('estimate_select', {
                 url: '/estimate_select',
                 templateUrl: 'tpls/views/estimate_select.html',
                 controller: 'EstimateSelectCtrl'
             })
             .state('estimate_new', {
-                url: '/estimate/new',
+                url: '/estimates/new',
                 templateUrl: 'tpls/views/estimate_edit.html',
                 controller: 'EstimateEditCtrl'
+            })
+            .state('estimate_edit', {
+                url: '/estimates/:id/edit',
+                templateUrl: 'tpls/views/estimate_edit.html',
+                controller: 'EstimateEditCtrl'
+            })
+            .state('estimate_show', {
+                url: '/estimates/:id',
+                templateUrl: 'tpls/views/estimate_show.html',
+                controller: 'EstimateShowCtrl'
             });
 
         $urlRouterProvider.otherwise('/');
