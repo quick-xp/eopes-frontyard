@@ -11,6 +11,10 @@ mServices.factory('EstimateService', function($resource) {
         get: {
             method: 'GET',
             params: {}
+        },
+        update: {
+            method: 'PUT',
+            params: {id: '@id'}
         }
     });
 });
