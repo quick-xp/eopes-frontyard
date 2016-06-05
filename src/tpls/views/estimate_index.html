@@ -1,56 +1,60 @@
 <section class="content-header">
-  <h1>Listing estimates</h1>
+    <h1>Listing estimates</h1>
 </section>
 
 <section class="content">
-  <div class="row">
-    <div class="box">
-      <div class="box-body">
-        <table id="lists" class="table table-bordered table-striped" datatable="ng" dt-options="dtOptions" cellspacing="0">
-          <thead>
-          <tr>
-            <th style="width: 40px">#</th>
-            <th>Product</th>
-            <th>Total Cost</th>
-            <th>Total Sell Price</th>
-            <th>Profit</th>
-            <th>Count</th>
-            <th>Total Volume</th>
-            <th>Created</th>
-            <th>Updated</th>
-            <th>Operation</th>
-          </tr>
-          </thead>
+    <div class="row">
+        <div class="box">
+            <div class="box-body">
+                <table id="lists" class="table table-bordered table-striped" datatable="ng" dt-options="dtOptions" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px">#</th>
+                            <th>Product</th>
+                            <th>Total Cost</th>
+                            <th>Total Sell Price</th>
+                            <th>Profit</th>
+                            <th>Count</th>
+                            <th>Total Volume</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
 
-          <tbody>
-              <tr ng-repeat="estimate in estimates">
-                <td>no image </td>
-                <td>{{ estimate.product_type_id }}</td>
-                <td>{{ estimate.total_cost }}
-                </td>
-                <td>{{ estimate.sell_total_price }}
-                </td>
-                <td>{{ estimate.profit }}
-                </td>
-                <td>{{ estimate.sell_count }} </td>
-                <td>{{ estimate.total_volume}} </td>
-                <td>{{ estimate.created_at | date: 'short'}}</td>
-                <td>{{ estimate.updated_at | date: 'short'}}</td>
-                <td>
-                    <a href='/estimates/{{estimate.id}}'>Show</a><br/>
-                    <a href='/estimates/{{estimate.id}}/edit'>Update</a><br/>
-                    <a ng-click="delete(estimate.id)">Delete</a>
-                </br/>
-                </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
+                    <tbody>
+                        <tr ng-repeat="estimate in estimates">
+                            <td>
+                                <img src="https://image.eveonline.com/Type/{{estimate.product_type_id}}_32.png" alt="{{estimate.product_type_id}}"/>
+                            </td>
+                            <td>{{ estimate.product_type_id }}</td>
+                            <td>{{ estimate.total_cost | number: 2}}
+                            </td>
+                            <td>{{ estimate.sell_total_price | number: 2}}
+                            </td>
+                            <td>{{ estimate.profit | number: 2}}
+                            </td>
+                            <td>{{ estimate.sell_count }}
+                            </td>
+                            <td>{{ estimate.total_volume}}
+                            </td>
+                            <td>{{ estimate.created_at | date: 'short'}}</td>
+                            <td>{{ estimate.updated_at | date: 'short'}}</td>
+                            <td>
+                                <a href='/estimates/{{estimate.id}}'>Show</a><br/>
+                                <a href='/estimates/{{estimate.id}}/edit'>Update</a><br/>
+                                <a ng-click="delete(estimate.id)">Delete</a>
+                            </br/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-  </div>
-  <br>
+</div>
+<br>
 
-  <a href='/estimate_select'>New Estimate</a>
-  <!-- <%= link_to 'New Estimate', select_estimates_path %> -->
+<a href='/estimate_select'>New Estimate</a>
+<!-- <%= link_to 'New Estimate', select_estimates_path %> -->
 </section>
