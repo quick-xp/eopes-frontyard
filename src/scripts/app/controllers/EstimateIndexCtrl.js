@@ -6,8 +6,8 @@ var mCtrls = require('./_mCtrls'),
     loader = require('../../utilities/loader');
 
 mCtrls
-    .controller('EstimateIndexCtrl', ['$scope', '$stateParams', 'EstimateService', 'DTOptionsBuilder',
-        function($scope, $stateParams, EstimateService, DTOptionsBuilder) {
+    .controller('EstimateIndexCtrl', ['$scope', '$state', '$stateParams', 'EstimateService', 'DTOptionsBuilder',
+        function($scope, $state, $stateParams, EstimateService, DTOptionsBuilder) {
 
             EstimateService.get({}, function(response) {
                 $scope.estimates = response.estimates;
@@ -23,8 +23,14 @@ mCtrls
                 var pEstimate = new EstimateService;
                 pEstimate.estimate = {};
                 pEstimate.estimate.id = estimateId;
-                pEstimate.$delete();
-
+                pEstimate.$delete(function(response) {
+                    var r = response.result;
+                    if (r = "success") {
+                        $state.go($state.current, {}, {reload: true});
+                    } else {
+                        $scope.errorMsg = "error";
+                    };
+                });
             };
 
         }

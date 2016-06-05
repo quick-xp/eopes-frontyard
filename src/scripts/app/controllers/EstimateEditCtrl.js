@@ -200,7 +200,16 @@ mCtrls
             $scope.saveEstimate = function() {
                 var pEstimate = $scope.getPostEstimate();
                 pEstimate.estimate.user_id = 1;
-                pEstimate.$save();
+                pEstimate.$save(function(response) {
+                    var r = response.result;
+                    if (r = "success") {
+                        $state.go('estimate_show', {
+                            id: response.estimate_form.id
+                        });
+                    } else {
+                        $scope.errorMsg = "error";
+                    };
+                });
             };
 
             // Save (Update)
@@ -208,7 +217,16 @@ mCtrls
                 var pEstimate = $scope.getPostEstimate();
                 pEstimate.estimate.user_id = 1;
                 pEstimate.id = $scope.id;
-                pEstimate.$update();
+                pEstimate.$update(function(response) {
+                    var r = response.result;
+                    if (r = "success") {
+                        $state.go('estimate_show', {
+                            id: response.estimate_form.id
+                        });
+                    } else {
+                        $scope.errorMsg = "error";
+                    };
+                });
             };
 
             // ###########################################//
@@ -226,10 +244,10 @@ mCtrls
                     var solar_system_id = $scope.jobCost.solar_system_id;
                     var region_name = "All Region";
                     var solar_system_name = "All SolarSystem";
-                    if (region_id != null){
-                         region_name = $scope.jobCost.region.regionName;
+                    if (region_id != null) {
+                        region_name = $scope.jobCost.region.regionName;
                     };
-                    if (solar_system_id != null){
+                    if (solar_system_id != null) {
                         solar_system_name = $scope.jobCost.solar_system.solarSystemName;
                     };
 
@@ -240,7 +258,7 @@ mCtrls
                             regionID: region_id,
                             regionName: region_name
                         };
-                        $scope.initSolarSystem(region_id, solar_system_id,solar_system_name);
+                        $scope.initSolarSystem(region_id, solar_system_id, solar_system_name);
                     };
 
                     // 見積もり初期化(製品の最安値)
@@ -268,7 +286,7 @@ mCtrls
                 });
             };
 
-            $scope.initSolarSystem = function(region_id, solar_system_id,solar_system_name) {
+            $scope.initSolarSystem = function(region_id, solar_system_id, solar_system_name) {
                 // SolarSystem初期化
                 MapSolarSystemService.query({
                     region_id: region_id

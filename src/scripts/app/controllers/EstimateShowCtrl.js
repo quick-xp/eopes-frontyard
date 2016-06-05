@@ -6,8 +6,8 @@ var mCtrls = require('./_mCtrls'),
     loader = require('../../utilities/loader');
 
 mCtrls
-    .controller('EstimateShowCtrl', ['$scope', '$stateParams', 'EstimateService',
-        function($scope, $stateParams, EstimateService) {
+    .controller('EstimateShowCtrl', ['$scope', '$state', '$stateParams', 'EstimateService',
+        function($scope, $state, $stateParams, EstimateService) {
             $scope.id = $stateParams.id;
 
             EstimateService.get({
@@ -23,6 +23,12 @@ mCtrls
                 $scope.skill.skill_3388 = 5;
 
             });
+
+            $scope.EditEstimate = function() {
+                $state.go('estimate_edit', {
+                    id: $scope.id
+                });
+            };
 
         }
     ]);
