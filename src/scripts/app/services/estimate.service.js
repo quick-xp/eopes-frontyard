@@ -15,6 +15,10 @@ mServices.factory('EstimateService', function($resource) {
         update: {
             method: 'PUT',
             params: {id: '@id'}
+        },
+        delete: {
+            method: 'DELETE',
+            params: {id: '@estimate.id'}
         }
     });
 });

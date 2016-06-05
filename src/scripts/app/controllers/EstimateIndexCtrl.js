@@ -17,5 +17,15 @@ mCtrls
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDisplayLength(25)
                 .withOption('order', [8, 'desc']);
+
+            // delete
+            $scope.delete = function(estimateId) {
+                var pEstimate = new EstimateService;
+                pEstimate.estimate = {};
+                pEstimate.estimate.id = estimateId;
+                pEstimate.$delete();
+
+            };
+
         }
     ]);

@@ -49,12 +49,12 @@ mCtrls
             $scope.REGISTRABLE_ATTRIBUTES = ['type_id', 'sell_price', 'sell_count', 'product_type_id',
                 'total_cost', 'material_total_cost', 'profit', 'total_volume', 'production_time', 'sell_total_price'
             ];
-            $scope.BLUEPRINT_REGISTRABLE_ATTRIBUTES = ['type_id', 'me', 'te', 'runs'];
-            $scope.MATERIAL_REGISTRABLE_ATTRIBUTES = ['type_id', 'require_count', 'base_quantity', 'price', 'adjusted_price',
+            $scope.BLUEPRINT_REGISTRABLE_ATTRIBUTES = ['id', 'type_id', 'me', 'te', 'runs'];
+            $scope.MATERIAL_REGISTRABLE_ATTRIBUTES = ['id', 'type_id', 'require_count', 'base_quantity', 'price', 'adjusted_price',
                 'total_price', 'jita_total_price', 'jita_average_price', 'universe_total_price',
                 'universe_average_price', 'volume', 'total_volume'
             ];
-            $scope.JOB_COST_REGISTABLE_ATTRIBUTES = ['region_id', 'solar_system_id', 'system_cost_index', 'base_job_cost',
+            $scope.JOB_COST_REGISTABLE_ATTRIBUTES = ['id', 'region_id', 'solar_system_id', 'system_cost_index', 'base_job_cost',
                 'job_fee', 'facility_cost', 'total_job_cost'
             ];
 
@@ -395,7 +395,7 @@ mCtrls
                 };
 
                 // 不足情報の追加
-                pEstimate.estimate.product_type_id = $scope.product.typeID
+                pEstimate.estimate.product_type_id = $scope.product.typeID;
                 return pEstimate;
             }
 
