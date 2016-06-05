@@ -17,7 +17,8 @@ require('ng-currency');
 require('datatablesAdminLte');
 require('datatablesBootstrap');
 require('angularDataTables');
-
+require('angular-cookie');
+require('ng-token-auth');
 
 var dependencies = [
     ngTouch,
@@ -31,7 +32,8 @@ var dependencies = [
     mFilters,
     'ui.select',
     'ng-currency',
-    'datatables'
+    'datatables',
+    'ng-token-auth'
 ];
 
 /**
