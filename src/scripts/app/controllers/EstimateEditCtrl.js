@@ -60,6 +60,7 @@ mCtrls
 
             // 初期化
             var initialize = function() {
+                $scope.loading = true; //setEstimateにて解除
                 $scope.estimateTypeId = SharedObjectService.estimateTypeId;
                 $scope.estimateTypeName = SharedObjectService.estimateTypeName;
 
@@ -378,6 +379,7 @@ mCtrls
                     $scope.blueprint.te,
                     $scope.skill.skill_3380,
                     $scope.skill.skill_3388);
+                $scope.loading = false;
             };
 
             $scope.getPostEstimate = function() {

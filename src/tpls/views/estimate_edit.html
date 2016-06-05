@@ -2,6 +2,14 @@
     <h1>Estimate Item</h1>
 </section>
 
+<div ng-show="loading" class="text-center loading-icon">
+  <i class="fa fa-spinner fa-pulse"></i> Now loading...
+</div>
+
+
+<div ng-hide="loading">
+
+
 <section class="content">
 <div class="row">
 <div class='col-md-12'>
@@ -417,3 +425,6 @@
 </div>
 </div>
 </section>
+
+
+</div>
